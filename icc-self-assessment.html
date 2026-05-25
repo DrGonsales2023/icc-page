@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inner Compass Assessment | Inner Compass Collective™</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #FDFAF6;
+      font-family: Georgia, 'Times New Roman', serif;
+      color: #2C2416;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* HEADER */
+    .header {
+      border-bottom: 1px solid #E8DDD0;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #FDFAF6;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .header-eyebrow {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: #8B6E52;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .header-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #2C2416;
+    }
+    .progress-label {
+      font-size: 11px;
+      color: #8B6E52;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      text-align: right;
+    }
+    .progress-bar-track {
+      width: 120px;
+      height: 2px;
+      background: #E8DDD0;
+      border-radius: 2px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: #8B6E52;
+      border-radius: 2px;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+
+    /* PHASES */
+    .phase { display: none; }
+    .phase.active { display: block; }
+
+    /* INTRO */
+    .intro-wrap {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 80px 32px;
+      text-align: center;
+    }
+    .intro-icon { font-size: 48px; margin-bottom: 24px; opacity: 0.6; }
+    .intro-heading {
+      font-size: clamp(26px, 5vw, 40px);
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: 20px;
+    }
+    .intro-sub {
+      font-size: 17px;
+      line-height: 1.8;
+      color: #6B5B45;
+      margin-bottom: 16px;
+    }
+    .intro-body {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #8B7B65;
+      margin-bottom: 48px;
+    }
+    .pill-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .pill {
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-style: italic;
+      border: 1px solid transparent;
+    }
+    .btn-begin {
+      background: #2C2416;
+      color: #FDFAF6;
+      border: none;
+      padding: 18px 48px;
+      font-size: 15px;
+      font-family: Georgia, serif;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .btn-begin:hover { background: #8B6E52; }
+    .intro-note {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #B8A898;
+      letter-spacing: 0.5px;
+    }
+
+    /* QUESTIONS */
+    .questions-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 60px 32px;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .questions-wrap.fade { opacity: 0; transform: translateY(8px); }
+
+    .dim-progress {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 40px;
+      justify-content: center;
+    }
+    .dim-pip {
+      height: 4px;
+      border-radius: 4px;
+      background: #E8DDD0;
+      transition: all 0.4s ease;
+    }
+
+    .dim-label-wrap { text-align: center; margin-bottom: 48px; }
+    .dim-icon-large { font-size: 32px; margin-bottom: 8px; }
+    .dim-name-label {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .dim-subtitle { font-size: 14px; color: #8B7B65; font-style: italic; }
+
+    .question-card {
+      padding: 40px;
+      border-radius: 4px;
+      margin-bottom: 32px;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .question-counter {
+      font-size: 11px;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+    .question-text {
+      font-size: 20px;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .scale-hint {
+      font-size: 12px;
+      color: #8B7B65;
+      text-align: center;
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+    }
+    .scale-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+    .scale-btn {
+      padding: 16px 8px;
+      border: 2px solid #E8DDD0;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+      font-family: Georgia, serif;
+    }
+    .scale-btn:hover { border-color: #C8B8A8; }
+    .scale-btn.selected { }
+    .scale-num {
+      font-size: 22px;
+      font-weight: 600;
+      color: #C8B8A8;
+      margin-bottom: 6px;
+      transition: color 0.2s;
+    }
+    .scale-btn.selected .scale-num { }
+    .scale-lbl {
+      font-size: 11px;
+      color: #8B7B65;
+      line-height: 1.3;
+      transition: color 0.2s;
+    }
+
+    .btn-next {
+      background: #E8DDD0;
+      color: #B8A898;
+      border: none;
+      padding: 16px 48px;
+      font-size: 14px;
+      font-family: Georgia, serif;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: default;
+      border-radius: 2px;
+      transition: all 0.2s;
+      display: block;
+      margin: 0 auto;
+    }
+    .btn-next.ready { color: white; cursor: pointer; }
+
+    /* RESULTS */
+    .results-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 32px;
+    }
+    .results-eyebrow {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: #8B6E52;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .results-headline {
+      font-size: clamp(20px, 4vw, 32px);
+      font-weight: 400;
+      line-height: 1.3;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .results-body {
+      font-size: 17px;
+      line-height: 1.8;
+      color: #6B5B45;
+      max-width: 540px;
+      margin: 0 auto 64px;
+      text-align: center;
+    }
+
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 48px;
+      align-items: end;
+    }
+    .chart-col { text-align: center; }
+    .chart-pct { font-size: 11px; color: #8B7B65; margin-bottom: 8px; }
+    .chart-bar-track {
+      height: 120px;
+      background: #F0EAE2;
+      border-radius: 4px 4px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .chart-bar-fill {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      border-radius: 4px 4px 0 0;
+      transition: height 1s ease;
+    }
+    .chart-label {
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 8px;
+      font-weight: 600;
+    }
+
+    .insight-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 64px; }
+    .insight-card {
+      padding: 28px 32px;
+      border-radius: 4px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .insight-icon-col { flex-shrink: 0; text-align: center; }
+    .insight-dim-icon { font-size: 24px; }
+    .insight-badge {
+      margin-top: 8px;
+      padding: 3px 8px;
+      color: white;
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 2px;
+      display: inline-block;
+    }
+    .insight-name {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .insight-text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #4A3B2A;
+      font-style: italic;
+    }
+
+    .cta-card {
+      text-align: center;
+      padding: 48px 40px;
+      background: #2C2416;
+      border-radius: 4px;
+      color: #FDFAF6;
+      margin-bottom: 32px;
+    }
+    .cta-eyebrow {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: #8B6E52;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .cta-heading { font-size: 24px; font-weight: 400; margin-bottom: 16px; line-height: 1.4; }
+    .cta-body {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #C8B8A0;
+      margin-bottom: 32px;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn-cta {
+      background: #8B6E52;
+      color: white;
+      border: none;
+      padding: 18px 48px;
+      font-size: 14px;
+      font-family: Georgia, serif;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 2px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+    .btn-cta:hover { background: #7A5E42; }
+
+    .btn-retake {
+      background: none;
+      border: none;
+      color: #8B7B65;
+      font-size: 13px;
+      font-family: Georgia, serif;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      text-decoration: underline;
+      display: block;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 520px) {
+      .header { padding: 16px 20px; }
+      .intro-wrap, .questions-wrap, .results-wrap { padding: 40px 20px; }
+      .question-card { padding: 24px 20px; }
+      .scale-grid { grid-template-columns: repeat(2, 1fr); }
+      .chart-grid { grid-template-columns: repeat(5, 1fr); gap: 4px; }
+      .chart-label { font-size: 8px; letter-spacing: 0; }
+      .insight-card { flex-direction: column; gap: 12px; }
+      .cta-card { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <div class="header-eyebrow">Inner Compass Collective™</div>
+    <div class="header-title">The Inner Compass Assessment</div>
+  </div>
+  <div id="progressWrap" style="display:none; text-align:right;">
+    <div class="progress-label" id="progressLabel">0% complete</div>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO PHASE -->
+<div class="phase active" id="phase-intro">
+  <div class="intro-wrap">
+    <div class="intro-icon">◎</div>
+    <h1 class="intro-heading">Where is your compass<br>pointing right now?</h1>
+    <p class="intro-sub">This is not a test. There are no wrong answers — only honest ones.</p>
+    <p class="intro-body">In about 8 minutes, you'll receive a clear picture of where you are across the five dimensions of the Inner Compass Framework™ — Identity, Visibility, Relevance, Direction, and Influence. Not to judge where you are, but to help you see yourself clearly, and feel fully seen.</p>
+    <div class="pill-row">
+      <span class="pill" style="background:#F5EDE4;color:#8B6E52;border-color:#8B6E5230;">Identity</span>
+      <span class="pill" style="background:#E8F0EC;color:#5C7A6B;border-color:#5C7A6B30;">Visibility</span>
+      <span class="pill" style="background:#EDE8F0;color:#7A6B8A;border-color:#7A6B8A30;">Relevance</span>
+      <span class="pill" style="background:#E8ECF0;color:#6B7A8A;border-color:#6B7A8A30;">Direction</span>
+      <span class="pill" style="background:#F0E8E8;color:#8A6B6B;border-color:#8A6B6B30;">Influence</span>
+    </div>
+    <button class="btn-begin" onclick="startAssessment()">Begin</button>
+    <p class="intro-note">15 reflective questions · No email required</p>
+  </div>
+</div>
+
+<!-- QUESTIONS PHASE -->
+<div class="phase" id="phase-questions">
+  <div class="questions-wrap" id="questionsWrap">
+    <div class="dim-progress" id="dimProgress"></div>
+    <div class="dim-label-wrap">
+      <div class="dim-icon-large" id="dimIcon"></div>
+      <div class="dim-name-label" id="dimName"></div>
+      <div class="dim-subtitle" id="dimSubtitle"></div>
+    </div>
+    <div class="question-card" id="questionCard">
+      <div class="question-counter" id="questionCounter"></div>
+      <p class="question-text" id="questionText"></p>
+    </div>
+    <div class="scale-hint">How true is this for you right now?</div>
+    <div class="scale-grid" id="scaleGrid"></div>
+    <button class="btn-next" id="btnNext" onclick="handleNext()">Continue →</button>
+  </div>
+</div>
+
+<!-- RESULTS PHASE -->
+<div class="phase" id="phase-results">
+  <div class="results-wrap">
+    <div class="results-eyebrow">Your Inner Compass Reading</div>
+    <h2 class="results-headline" id="resultsHeadline"></h2>
+    <p class="results-body" id="resultsBody"></p>
+    <div class="chart-grid" id="chartGrid"></div>
+    <div class="insight-list" id="insightList"></div>
+    <div class="cta-card">
+      <div class="cta-eyebrow">What comes next</div>
+      <h3 class="cta-heading">Stop Drifting. Start Navigating.™</h3>
+      <p class="cta-body">The Inner Compass Collective™ Charter Cohort opens July 2026 — eight seats for experienced women leaders ready to navigate what comes next with intention.</p>
+      <a class="btn-cta" href="https://www.theinnercompasscollective.com" target="_blank" rel="noopener">Learn About the Cohort →</a>
+    </div>
+    <button class="btn-retake" onclick="retake()">Retake the assessment</button>
+  </div>
+</div>
+
+<script>
+  const dimensions = [
+    {
+      id: "identity", name: "Identity", subtitle: "Who you are at the center",
+      color: "#8B6E52", lightColor: "#F5EDE4", icon: "◎",
+      questions: [
+        "I have a clear sense of who I am as a leader — separate from my title or role.",
+        "When I face uncertainty, I return to my values as an anchor.",
+        "I can describe what makes my leadership presence distinctive and real."
+      ]
+    },
+    {
+      id: "visibility", name: "Visibility", subtitle: "How you show up and are seen",
+      color: "#5C7A6B", lightColor: "#E8F0EC", icon: "◉",
+      questions: [
+        "I feel comfortable taking up space — speaking, leading, being recognized.",
+        "I actively share my perspective, even when it's easier to stay quiet.",
+        "Others would say they truly see and understand what I bring to the table."
+      ]
+    },
+    {
+      id: "relevance", name: "Relevance", subtitle: "The impact you're here to make",
+      color: "#7A6B8A", lightColor: "#EDE8F0", icon: "◈",
+      questions: [
+        "I feel connected to work that matters — beyond just getting things done.",
+        "I know how my experience and wisdom translate into what's needed now.",
+        "I am confident that what I offer is valuable and needed in this season."
+      ]
+    },
+    {
+      id: "direction", name: "Direction", subtitle: "Where you're headed with intention",
+      color: "#6B7A8A", lightColor: "#E8ECF0", icon: "◇",
+      questions: [
+        "I have a sense of where I'm going — even if the path isn't fully mapped.",
+        "I make decisions that align with my longer vision, not just immediate demands.",
+        "I feel momentum in my life and leadership right now."
+      ]
+    },
+    {
+      id: "influence", name: "Influence", subtitle: "The legacy you're leaving",
+      color: "#8A6B6B", lightColor: "#F0E8E8", icon: "◆",
+      questions: [
+        "I lead in ways that shape and uplift the people around me.",
+        "I feel that my presence creates positive ripples — in rooms, in people, in systems.",
+        "I am intentional about the legacy I'm building, not just the work I'm doing."
+      ]
+    }
+  ];
+
+  const scaleLabels = [
+    { value: 1, label: "Rarely true" },
+    { value: 2, label: "Sometimes" },
+    { value: 3, label: "Often true" },
+    { value: 4, label: "Almost always" }
+  ];
+
+  let currentDim = 0, currentQ = 0, selected = null;
+  const answers = {};
+
+  function totalAnswered() { return Object.keys(answers).length; }
+  function totalQuestions() { return dimensions.length * 3; }
+
+  function startAssessment() {
+    currentDim = 0; currentQ = 0; selected = null;
+    showPhase("questions");
+    document.getElementById("progressWrap").style.display = "block";
+    renderQuestion();
+  }
+
+  function showPhase(id) {
+    document.querySelectorAll(".phase").forEach(p => p.classList.remove("active"));
+    document.getElementById("phase-" + id).classList.add("active");
+  }
+
+  function updateProgress() {
+    const pct = Math.round((totalAnswered() / totalQuestions()) * 100);
+    document.getElementById("progressLabel").textContent = pct + "% complete";
+    document.getElementById("progressFill").style.width = pct + "%";
+  }
+
+  function renderQuestion() {
+    const dim = dimensions[currentDim];
+
+    // Dim progress pips
+    const pipContainer = document.getElementById("dimProgress");
+    pipContainer.innerHTML = dimensions.map((d, i) => {
+      const w = i === currentDim ? "32px" : "8px";
+      const bg = i < currentDim ? d.color : i === currentDim ? dim.color : "#E8DDD0";
+      return `<div class="dim-pip" style="width:${w};background:${bg};"></div>`;
+    }).join("");
+
+    // Dim label
+    document.getElementById("dimIcon").textContent = dim.icon;
+    document.getElementById("dimIcon").style.color = dim.color;
+    document.getElementById("dimName").textContent = dim.name;
+    document.getElementById("dimName").style.color = dim.color;
+    document.getElementById("dimSubtitle").textContent = dim.subtitle;
+
+    // Question card
+    document.getElementById("questionCard").style.background = dim.lightColor;
+    document.getElementById("questionCounter").textContent = `REFLECTION ${currentQ + 1} OF 3`;
+    document.getElementById("questionCounter").style.color = dim.color;
+    document.getElementById("questionText").textContent = dim.questions[currentQ];
+
+    // Scale buttons
+    selected = null;
+    const grid = document.getElementById("scaleGrid");
+    grid.innerHTML = scaleLabels.map(s =>
+      `<button class="scale-btn" data-value="${s.value}" onclick="selectScale(${s.value}, '${dim.color}', '${dim.lightColor}')">
+        <div class="scale-num">${s.value}</div>
+        <div class="scale-lbl">${s.label}</div>
+      </button>`
+    ).join("");
+
+    // Next button
+    const isLast = currentDim === 4 && currentQ === 2;
+    const btn = document.getElementById("btnNext");
+    btn.textContent = isLast ? "See My Results" : "Continue →";
+    btn.className = "btn-next";
+    btn.style.background = "#E8DDD0";
+    btn.style.color = "#B8A898";
+
+    updateProgress();
+  }
+
+  function selectScale(value, color, lightColor) {
+    selected = value;
+    document.querySelectorAll(".scale-btn").forEach(btn => {
+      const v = parseInt(btn.dataset.value);
+      if (v === value) {
+        btn.style.borderColor = color;
+        btn.style.background = lightColor;
+        btn.querySelector(".scale-num").style.color = color;
+        btn.querySelector(".scale-lbl").style.color = color;
+      } else {
+        btn.style.borderColor = "#E8DDD0";
+        btn.style.background = "white";
+        btn.querySelector(".scale-num").style.color = "#C8B8A8";
+        btn.querySelector(".scale-lbl").style.color = "#8B7B65";
+      }
+    });
+    const dim = dimensions[currentDim];
+    const btn = document.getElementById("btnNext");
+    btn.classList.add("ready");
+    btn.style.background = dim.color;
+    btn.style.color = "white";
+  }
+
+  function handleNext() {
+    if (selected === null) return;
+    const key = `${dimensions[currentDim].id}-${currentQ}`;
+    answers[key] = selected;
+
+    const wrap = document.getElementById("questionsWrap");
+    wrap.classList.add("fade");
+
+    setTimeout(() => {
+      if (currentQ < 2) {
+        currentQ++;
+      } else if (currentDim < dimensions.length - 1) {
+        currentDim++;
+        currentQ = 0;
+      } else {
+        showResults();
+        return;
+      }
+      wrap.classList.remove("fade");
+      renderQuestion();
+    }, 300);
+  }
+
+  function getInsight(dim, score) {
+    const pct = (score / 12) * 100;
+    const thriving = {
+      identity: "Your identity as a leader is a grounded anchor. You know who you are — and that clarity is a gift you carry into every room.",
+      visibility: "You show up fully and let yourself be seen. Your presence is felt, and others are shaped by it.",
+      relevance: "You are deeply connected to work that matters. Your wisdom is landing — and the world needs more of it.",
+      direction: "You move with intention. Even in uncertainty, you navigate rather than drift.",
+      influence: "Your leadership ripples outward in ways you may not fully see. You are building something real."
+    };
+    const emerging = {
+      identity: "Your identity is present, but may feel layered under roles and expectations. There's more of you waiting to be reclaimed.",
+      visibility: "You show up — and sometimes hold back. The world is ready for more of your voice than you're currently sharing.",
+      relevance: "You sense your value, but may not feel fully connected to it yet. That thread is closer than you think.",
+      direction: "You have a sense of direction, but may feel pulled by competing demands. Your compass is there — it may need recalibrating.",
+      influence: "Your influence is real, but you may be underselling it. People feel your presence more than you know."
+    };
+    const tender = {
+      identity: "This is an invitation. Your identity as a leader may feel foggy or borrowed. Reclaiming it is the work — and you are ready for it.",
+      visibility: "Something has asked you to make yourself small. This season is calling you back to your full size.",
+      relevance: "You may be questioning whether you still matter, still fit, still have something to give. You do. Fully.",
+      direction: "You may feel adrift right now. That's not failure — it's the beginning of a navigation. Let's find your coordinates.",
+      influence: "Your influence may feel invisible to you right now. But impact doesn't announce itself. Yours is there."
+    };
+    if (pct >= 80) return { level: "Thriving", text: thriving[dim.id], badgeColor: dim.color };
+    if (pct >= 55) return { level: "Emerging", text: emerging[dim.id], badgeColor: "#B8944A" };
+    return { level: "Tender", text: tender[dim.id], badgeColor: "#8A6B6B" };
+  }
+
+  function getOverallMessage(scores) {
+    const total = Object.values(scores).reduce((a, b) => a + b, 0);
+    const pct = (total / 60) * 100;
+    if (pct >= 75) return {
+      headline: "You are navigating with remarkable clarity.",
+      body: "Your Inner Compass is calibrated and alive. You carry wisdom, intention, and a presence that shapes the people and spaces around you. This season is not about starting over — it's about going deeper."
+    };
+    if (pct >= 50) return {
+      headline: "You are in a season of becoming.",
+      body: "Some parts of your compass are steady. Others are asking for your attention. That's not weakness — that's wisdom knowing where to look. You have everything you need to navigate what comes next."
+    };
+    return {
+      headline: "You are at the beginning of something real.",
+      body: "This moment — of honest reflection, of asking the hard questions — is where navigation begins. You haven't lost your compass. You're just learning to read it again. That courage is the first step."
+    };
+  }
+
+  function showResults() {
+    // Calculate scores
+    const scores = {};
+    dimensions.forEach(d => {
+      let total = 0;
+      for (let i = 0; i < 3; i++) total += answers[`${d.id}-${i}`] || 0;
+      scores[d.id] = total;
+    });
+
+    const msg = getOverallMessage(scores);
+    document.getElementById("resultsHeadline").textContent = msg.headline;
+    document.getElementById("resultsBody").textContent = msg.body;
+
+    // Chart
+    const chart = document.getElementById("chartGrid");
+    chart.innerHTML = dimensions.map(d => {
+      const pct = Math.round((scores[d.id] / 12) * 100);
+      return `<div class="chart-col">
+        <div class="chart-pct">${pct}%</div>
+        <div class="chart-bar-track">
+          <div class="chart-bar-fill" style="height:0%;background:${d.color};" data-target="${pct}"></div>
+        </div>
+        <div class="chart-label" style="color:${d.color};">${d.name}</div>
+      </div>`;
+    }).join("");
+
+    // Insights
+    const list = document.getElementById("insightList");
+    list.innerHTML = dimensions.map(d => {
+      const insight = getInsight(d, scores[d.id]);
+      return `<div class="insight-card" style="background:${d.lightColor};">
+        <div class="insight-icon-col">
+          <div class="insight-dim-icon" style="color:${d.color};">${d.icon}</div>
+          <div class="insight-badge" style="background:${insight.badgeColor};">${insight.level}</div>
+        </div>
+        <div>
+          <div class="insight-name" style="color:${d.color};">${d.name}</div>
+          <p class="insight-text">${insight.text}</p>
+        </div>
+      </div>`;
+    }).join("");
+
+    document.getElementById("progressWrap").style.display = "none";
+    showPhase("results");
+
+    // Animate bars after render
+    setTimeout(() => {
+      document.querySelectorAll(".chart-bar-fill").forEach(el => {
+        el.style.height = el.dataset.target + "%";
+      });
+    }, 100);
+  }
+
+  function retake() {
+    Object.keys(answers).forEach(k => delete answers[k]);
+    currentDim = 0; currentQ = 0; selected = null;
+    document.getElementById("progressWrap").style.display = "none";
+    showPhase("intro");
+  }
+</script>
+</body>
+</html>
