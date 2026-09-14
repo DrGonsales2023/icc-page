@@ -1255,7 +1255,157 @@ footer {
 </section>
 
 <!-- ══ CTAs ══ -->
-<section class="ctas" id="ctas">
+<!-- ══ BOOK ══ -->
+
+<div class="gold-rule"></div>
+
+<section class="book" id="book">
+  <div class="book-inner">
+
+    <div class="book-cover fade-up">
+      <img src="navigating-cover.jpg"
+           alt="Cover of Navigating the Next Season by Dr. Carol Anne Gonsales" />
+    </div>
+
+    <div class="book-content">
+      <div class="section-label fade-up">
+        <span class="book-rule"></span> New book · October 1
+      </div>
+
+      <h2 class="section-title fade-up fade-up-delay-1">Navigating the Next Season</h2>
+
+      <div class="book-subtitle fade-up fade-up-delay-1">
+        A Women Leader's Guide to Navigating AI with Purpose and Discernment
+      </div>
+
+      <div class="book-body fade-up fade-up-delay-2">
+        Most guides to artificial intelligence are written for people who already speak
+        the language. This one is written for women who have led for decades and now find
+        the ground shifting beneath them.
+      </div>
+
+      <div class="book-body fade-up fade-up-delay-2">
+        A working guide to using AI with purpose and discernment — what to ask of it, what
+        to hold back, and how to keep your own judgment at the center of the work. Built on
+        the Inner Compass Leadership Framework™ and drawn from twenty-five years in education.
+      </div>
+
+      <div class="book-actions fade-up fade-up-delay-3">
+        <a href="https://a.co/d/0gEJmaiL"
+           class="book-cta"
+           target="_blank"
+           rel="noopener">Pre-order the Kindle edition</a>
+
+        <!-- On October 1, replace this span with the paperback link -->
+        <span class="book-cta book-cta-pending">Paperback — available October 1</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.book {
+  padding: 96px 8vw;
+  background: var(--cream);
+}
+
+.book-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+  gap: 64px;
+  align-items: center;
+}
+
+.book-cover img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+  box-shadow: var(--shadow-soft);
+}
+
+.book .section-label {
+  color: var(--gold);
+}
+
+.book-rule {
+  width: 28px;
+  height: 1px;
+  background: var(--gold-light);
+  display: inline-block;
+}
+
+.book-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-style: italic;
+  color: var(--teal);
+  line-height: 1.5;
+  margin-bottom: 28px;
+}
+
+.book-body {
+  font-size: 1rem;
+  color: var(--charcoal-60);
+  line-height: 1.8;
+  max-width: 56ch;
+  margin-bottom: 20px;
+}
+
+.book-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 36px;
+}
+
+.book-cta {
+  display: inline-block;
+  padding: 13px 28px;
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-radius: 2px;
+  background: var(--teal);
+  color: var(--cream);
+  transition: background 0.25s;
+}
+
+.book-cta:hover,
+.book-cta:focus-visible {
+  background: var(--teal-dark);
+}
+
+.book-cta-pending {
+  background: transparent;
+  color: var(--charcoal-60);
+  border: 1px solid var(--cream-deep);
+  cursor: default;
+}
+
+@media (max-width: 860px) {
+  .book {
+    padding: 72px 8vw;
+  }
+  .book-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    justify-items: center;
+    text-align: left;
+  }
+  .book-cover {
+    max-width: 280px;
+  }
+}
+</style>
+  
+  
+  
+  <section class="ctas" id="ctas">
   <div class="ctas-eyebrow fade-up">Charter Cohort · January 2027</div>
   <h2 class="ctas-title fade-up fade-up-delay-1">
     You already know<br>
