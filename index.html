@@ -1269,7 +1269,7 @@ footer {
 
     <div class="book-content">
       <div class="section-label fade-up">
-        <span class="book-rule"></span> New book · October 1
+        <span class="book-rule"></span> Now available
       </div>
 
       <h2 class="section-title fade-up fade-up-delay-1">Navigating the Next Season</h2>
@@ -1296,8 +1296,10 @@ footer {
            target="_blank"
            rel="noopener"> Kindle edition available now!</a>
 
-        <!-- https://www.amazon.com/NAVIGATING-NEXT-SEASON-Navigating-Discernment/dp/B0HLS4ML6B/ref=monarch_sidesheet_title -->
-        <span class="book-cta book-cta-pending">Paperback and Hardcover — available now!</span>
+        <a href="https://www.amazon.com/NAVIGATING-NEXT-SEASON-Navigating-Discernment/dp/B0HLS4ML6B"
+           class="book-cta book-cta-secondary"
+           target="_blank"
+           rel="noopener">Paperback and Hardcover — available now!</a>
       </div>
     </div>
 
@@ -1422,11 +1424,16 @@ footer {
   background: var(--teal-dark);
 }
 
-.book-cta-pending {
+.book-cta-secondary {
   background: transparent;
-  color: var(--charcoal-60);
-  border: 1px solid var(--cream-deep);
-  cursor: default;
+  color: var(--teal);
+  border: 1px solid var(--teal);
+}
+
+.book-cta-secondary:hover,
+.book-cta-secondary:focus-visible {
+  background: var(--teal);
+  color: var(--cream);
 }
 
 .book-praise {
