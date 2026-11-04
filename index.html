@@ -1302,6 +1302,48 @@ footer {
     </div>
 
   </div>
+
+  <div class="book-praise">
+    <div class="section-label book-praise-label fade-up">What readers are saying</div>
+
+    <div class="book-praise-grid">
+
+      <figure class="praise-card fade-up fade-up-delay-1">
+        <blockquote>
+          “You have created a thoughtful, timely, and meaningful resource that I would
+          wholeheartedly recommend to any woman serving in a leadership capacity.”
+        </blockquote>
+        <figcaption>
+          <span class="praise-name">Julie Penn</span>
+          <span class="praise-role">Former Superintendent, Stockton Unified School District</span>
+        </figcaption>
+      </figure>
+
+      <figure class="praise-card fade-up fade-up-delay-2">
+        <blockquote>
+          “The goal isn’t to let technology think for you, but to use it to think better.”
+        </blockquote>
+        <figcaption>
+          <span class="praise-name">Jais</span>
+          <span class="praise-role"><a href="https://getsethappy.com/navigating-the-next-season-by-dr-carol-anne-gonsales/" target="_blank" rel="noopener">Get Set Happy</a></span>
+          <span class="praise-disclosure">Review provided through a paid review service</span>
+        </figcaption>
+      </figure>
+
+      <figure class="praise-card fade-up fade-up-delay-3">
+        <blockquote>
+          “The reflection questions, practical exercises, and ready-to-use AI prompts make
+          it more than a book to read and put aside.”
+        </blockquote>
+        <figcaption>
+          <span class="praise-name">Jais</span>
+          <span class="praise-role"><a href="https://getsethappy.com/navigating-the-next-season-by-dr-carol-anne-gonsales/" target="_blank" rel="noopener">Get Set Happy</a></span>
+          <span class="praise-disclosure">Review provided through a paid review service</span>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
 </section>
 
 <style>
@@ -1387,6 +1429,69 @@ footer {
   cursor: default;
 }
 
+.book-praise {
+  max-width: 1080px;
+  margin: 72px auto 0;
+  padding-top: 56px;
+  border-top: 1px solid var(--cream-deep);
+}
+.book-praise-label {
+  justify-content: center;
+  margin-bottom: 36px;
+}
+.book-praise-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+.praise-card {
+  margin: 0;
+  padding: 36px 30px 30px;
+  background: var(--white);
+  border-top: 2px solid var(--gold-light);
+  border-radius: 2px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.praise-card blockquote {
+  margin: 0 0 28px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--teal-dark);
+}
+.praise-card figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.praise-name {
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--charcoal);
+}
+.praise-role {
+  font-size: 0.85rem;
+  color: var(--charcoal-60);
+  line-height: 1.5;
+}
+.praise-role a {
+  color: var(--teal);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.praise-disclosure {
+  margin-top: 6px;
+  font-size: 0.72rem;
+  font-style: italic;
+  color: var(--charcoal-60);
+}
+
 @media (max-width: 860px) {
   .book {
     padding: 72px 8vw;
@@ -1400,6 +1505,9 @@ footer {
   .book-cover {
     max-width: 280px;
   }
+  .book-praise { margin-top: 56px; padding-top: 44px; }
+  .book-praise-grid { grid-template-columns: 1fr; gap: 20px; }
+  .praise-card blockquote { font-size: 1.2rem; }
 }
 </style>
   <section class="ctas" id="ctas">
